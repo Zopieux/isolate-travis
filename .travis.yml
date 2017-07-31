@@ -12,10 +12,14 @@ before_install:
     &&      make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" isolate
     && sudo make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" install
     && sudo sed -i "s|/var/local/lib/isolate|/var/lib/isolate|" /etc/isolate
-    && sudo chown $USER:root /usr/bin/isolate
-    && sudo chmod u=rx,g=rwxs,o= /usr/bin/isolate
+    && sudo chown -v $USER:root /usr/bin/isolate
+    && sudo chmod -v u=rx,g=rwxs,o= /usr/bin/isolate
+    && id
+    && ls -l  /usr/bin/isolate
+    && ls -ln /usr/bin/isolate
 
 script:
+  - id
   - isolate --box-id 1 --cg --init
     && ls /var/lib/isolate
   - isolate --box-id 1 --cleanup
