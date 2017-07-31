@@ -18,12 +18,11 @@ before_install:
     && sudo chmod -v u+s /usr/bin/isolate
     && ls -l  /usr/bin/isolate
     && ls -ln /usr/bin/isolate
-    && newgrp isolate
     && id
 
 script:
-  - newgrp isolate && id
-  - isolate --box-id 1 --cg --init
-    && ls /var/lib/isolate
-  - isolate --box-id 1 --cleanup
-    && ls /var/lib/isolate
+  - sudo -E su $USER -c 'id'
+  - sudo -E su $USER -c 'isolate --box-id 1 --cg --init'
+    && ls -al /var/lib/isolate
+  - sudo -E su $USER -c 'isolate --box-id 1 --cg --cleanup'
+    && ls -al /var/lib/isolate
