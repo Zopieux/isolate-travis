@@ -7,7 +7,9 @@ if ! [[ $(sudo -E su $USER -c 'groups') == *isolate* ]]; then
    exit 1;
 fi
 
-sudo -E su $USER -c \
-"cd $TRAVIS_BUILD_DIR; pwd; ls -al;"\
-"python setup.py"\
+which python
+python --version
+
+sudo -E su $USER -c "cd $TRAVIS_BUILD_DIR; which python; python --version; pwd; ls -al; python setup.py"
+sudo -E su $USER -p -c "cd $TRAVIS_BUILD_DIR; which python; python --version; pwd; ls -al; python setup.py"
 

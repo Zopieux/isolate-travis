@@ -22,3 +22,7 @@ sudo usermod -a -G isolate $USER
 sudo chown -v root:isolate /usr/bin/isolate
 sudo chmod -v u+s /usr/bin/isolate
 
+env
+sudo -E su $USER -c 'env'
+sudo -E su $USER -p -c 'env'
+
