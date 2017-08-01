@@ -4,8 +4,8 @@ set -ex
 
 # packages
 export DEBIAN_FRONTEND=noninteractive
-apt-get update -qq
-apt-get install -y libcap-dev
+sudo apt-get update -qq
+sudo apt-get install -y libcap-dev
 
 # build isolate
 pushd /tmp
