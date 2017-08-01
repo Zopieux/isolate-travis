@@ -3,6 +3,9 @@
 set -ex
 
 # packages
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -qq
+apt-get install -y libcap-dev
 
 # build isolate
 pushd /tmp
@@ -21,8 +24,3 @@ sudo groupadd isolate
 sudo usermod -a -G isolate $USER
 sudo chown -v root:isolate /usr/bin/isolate
 sudo chmod -v u+s /usr/bin/isolate
-
-env
-sudo -E su $USER -c 'env'
-sudo -E su $USER -p -c 'env'
-
