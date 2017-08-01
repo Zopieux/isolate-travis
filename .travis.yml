@@ -5,24 +5,22 @@ python:
   - '3.6'
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y build-essential
-  - git clone --depth=1 https://github.com/ioi/isolate.git
-    && cd isolate
-    &&      make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" isolate
-    && sudo make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" install
-    && sudo sed -i "s|/var/local/lib/isolate|/var/lib/isolate|" /etc/isolate
-    && sudo groupadd isolate
-    && sudo usermod -a -G isolate $USER
-    && sudo chown -v root:isolate /usr/bin/isolate
-    && sudo chmod -v u+s /usr/bin/isolate
-    && ls -l  /usr/bin/isolate
-    && ls -ln /usr/bin/isolate
-    && id
+  - 'git clone --depth=1 https://github.com/ioi/isolate.git
+     && cd isolate
+     &&      make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" isolate
+     && sudo make PREFIX="/usr" VARPREFIX="/var" CONFIGDIR="/etc" install
+     && sudo sed -i "s|/var/local/lib/isolate|/var/lib/isolate|" /etc/isolate
+     && sudo groupadd isolate
+     && sudo usermod -a -G isolate $USER
+     && sudo chown -v root:isolate /usr/bin/isolate
+     && sudo chmod -v u+s /usr/bin/isolate
+     && ls -l  /usr/bin/isolate
+     && ls -ln /usr/bin/isolate
+     && id'
 
 script:
-  - sudo -E su $USER -c 'id'
-  - sudo -E su $USER -c 'isolate --box-id 1 --cg --init'
-    && ls -al /var/lib/isolate
-  - sudo -E su $USER -c 'isolate --box-id 1 --cg --cleanup'
-    && ls -al /var/lib/isolate
+  - sudo -E su $USER -c 'id ; pwd ; ls' || true
+  - sudo -E su $USER -c 'python setup.py' || true
+  - '[[ $(sudo -E su $USER -c "groups") == *isolate* ]]'
+  - sudo -E su $USER -c 'isolate --box-id 1 --cg --init' && ls -al /var/lib/isolate
+  - sudo -E su $USER -c 'isolate --box-id 1 --cg --cleanup' && ls -al /var/lib/isolate
