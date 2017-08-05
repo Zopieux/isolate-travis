@@ -5,13 +5,12 @@ set -ex
 # packages
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -qq
-sudo apt-get install -y libcap-dev openjdk-8-jdk-headless php5-cli
+sudo apt-get install -yqq libcap-dev coreutils build-essential ghc-dynamic
 
-ls -al /usr/bin/java*
-
-which javac || true
-which java || true
-which php || true
+ls -al /usr/lib/ghc/package.conf.d
+gcc -print-prog-name=ld
+which ld
+dpkg -V binutils
 
 # build isolate
 pushd /tmp
