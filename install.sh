@@ -5,7 +5,13 @@ set -ex
 # packages
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -qq
-sudo apt-get install -y libcap-dev
+sudo apt-get install -y libcap-dev openjdk-8-jdk-headless php5-cli
+
+ls -al /usr/bin/java*
+
+which javac || true
+which java || true
+which php || true
 
 # build isolate
 pushd /tmp

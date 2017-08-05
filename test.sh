@@ -7,8 +7,9 @@ if ! [[ $(sudo -E su $USER -c 'groups') == *isolate* ]]; then
    exit 1;
 fi
 
-which python
+which python java javac php
 python --version
 
+sudo -E su $USER -c "set -x; which java javac php"
 sudo -E su $USER -c "set -x; cd $TRAVIS_BUILD_DIR; source $VIRTUAL_ENV/bin/activate; which python; python --version; pwd; ls -al; python setup.py"
 
